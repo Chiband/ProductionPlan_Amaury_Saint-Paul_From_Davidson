@@ -7,9 +7,8 @@ namespace Application.Use_Cases.ProductionPlan
         public CreateProductionPlanCommandValidator()
         {
             RuleFor(x => x.Load)
-            .Must(double.IsFinite)
             .GreaterThanOrEqualTo(0)
-            .WithMessage("Load must be a finite, non-negative value.");
+            .WithMessage("Load must be a non-negative value.");
 
             RuleFor(x => x.Powerplants)
                 .NotNull()
@@ -24,22 +23,19 @@ namespace Application.Use_Cases.ProductionPlan
                         .WithMessage("Powerplant name is required.");
 
                     powerplant.RuleFor(p => p.Efficiency)
-                        .Must(double.IsFinite)
                         .InclusiveBetween(0, 1)
                         .WithMessage(
-                            "Efficiency must be a finite value between 0 and 1.");
+                            "Efficiency must be a value between 0 and 1.");
 
                     powerplant.RuleFor(p => p.Pmin)
-                        .Must(double.IsFinite)
                         .GreaterThanOrEqualTo(0)
                         .WithMessage(
-                            "Pmin must be a finite, non-negative value.");
+                            "Pmin must be a non-negative value.");
 
                     powerplant.RuleFor(p => p.Pmax)
-                        .Must(double.IsFinite)
                         .GreaterThanOrEqualTo(0)
                         .WithMessage(
-                            "Pmax must be a finite, non-negative value.");
+                            "Pmax must be a non-negative value.");
 
                     powerplant.RuleFor(p => p)
                         .Must(p => p.Pmin <= p.Pmax)
@@ -52,24 +48,20 @@ namespace Application.Use_Cases.ProductionPlan
                 .WithMessage("Fuel data is required.");
             
             RuleFor(x => x.Fuels.Gas)
-                .Must(double.IsFinite)
                 .GreaterThanOrEqualTo(0)
-                .WithMessage("Gas price must be a finite, non-negative value.");
+                .WithMessage("Gas price must be a non-negative value.");
 
             RuleFor(x => x.Fuels.Kerosine)
-                .Must(double.IsFinite)
                 .GreaterThanOrEqualTo(0)
-                .WithMessage("Kerosine price must be a finite, non-negative value.");
+                .WithMessage("Kerosine price must be a non-negative value.");
 
             RuleFor(x => x.Fuels.Co2)
-                .Must(double.IsFinite)
                 .GreaterThanOrEqualTo(0)
-                .WithMessage("CO2 price must be a finite, non-negative value.");
+                .WithMessage("CO2 price must be a non-negative value.");
 
             RuleFor(x => x.Fuels.Wind)
-                .Must(double.IsFinite)
                 .InclusiveBetween(0, 100)
-                .WithMessage("Wind must be a finite percentage between 0 and 100.");
+                .WithMessage("Wind must be a percentage between 0 and 100.");
         }
     }
 }
