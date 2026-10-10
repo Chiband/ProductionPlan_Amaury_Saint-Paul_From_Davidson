@@ -18,5 +18,6 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Domain\Domain.csproj" />
 	  <ProjectReference Include="..\SharedKernel\SharedKernel.csproj" />
+		<InternalsVisibleTo Include="ApplicationTests" />
 	</ItemGroup>
 </Project>
