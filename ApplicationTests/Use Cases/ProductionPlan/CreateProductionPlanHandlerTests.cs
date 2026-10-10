@@ -25,7 +25,7 @@ public sealed class ProductionPlanHandlerTests
         Assert.NotNull(result.Value);
             
         Assert.All(
-            result.Value!.Results,
+            result.Value!,
             production => Assert.Equal(0, production.P));
     }
 
@@ -44,7 +44,7 @@ public sealed class ProductionPlanHandlerTests
         Assert.True(result.IsSuccess);
         Assert.NotNull(result.Value);
 
-        var productions = result.Value!.Results;
+        var productions = result.Value!;
 
         Assert.Equal(2, productions.Count);
 

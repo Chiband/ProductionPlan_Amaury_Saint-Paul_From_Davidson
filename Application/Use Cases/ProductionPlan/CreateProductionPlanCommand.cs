@@ -6,5 +6,5 @@ namespace Application.Use_Cases.ProductionPlan
          double Load,
          IReadOnlyCollection<PowerPlantDto> Powerplants,
          FuelDto Fuels)
-        : IRequest<Result<ProductionPlanResponse>>;
+        : IRequest<Result<IReadOnlyCollection<ResultProductionPlanResponse>>>;
 }

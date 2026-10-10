@@ -5,9 +5,9 @@ using SharedKernel;
 
 namespace Application.Use_Cases.ProductionPlan
 {
-    internal sealed class ProductionPlanHandler(ProductionPlanCalculator productionPlanCalculator) : IRequestHandler<CreateProductionPlanCommand, Result<ProductionPlanResponse>>
+    internal sealed class ProductionPlanHandler(ProductionPlanCalculator productionPlanCalculator) : IRequestHandler<CreateProductionPlanCommand, Result<IReadOnlyCollection<ResultProductionPlanResponse>>>
     {
-        public async Task<Result<ProductionPlanResponse>> Handle(
+        public async Task<Result<IReadOnlyCollection<ResultProductionPlanResponse>>> Handle(
             CreateProductionPlanCommand request, 
             CancellationToken cancellationToken)
         {
@@ -18,7 +18,7 @@ namespace Application.Use_Cases.ProductionPlan
 
             if (result.IsFailure)
             {
-                return Result<ProductionPlanResponse>.Failure(result.Error);
+                return Result<IReadOnlyCollection<ResultProductionPlanResponse>>.Failure(result.Error);
             }
 
             var plantProductionResponse = result!.Value!
@@ -27,9 +27,7 @@ namespace Application.Use_Cases.ProductionPlan
                     plant.Power))
                 .ToList();
 
-            var response = new ProductionPlanResponse(plantProductionResponse);
-
-            return Result<ProductionPlanResponse>.Success(response);
+            return Result<IReadOnlyCollection<ResultProductionPlanResponse>>.Success(plantProductionResponse);
         }
     }
 }

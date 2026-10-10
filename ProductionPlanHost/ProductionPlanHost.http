@@ -1,6 +1,31 @@
 @ProductionPlanHost_HostAddress = http://localhost:8888
 
-GET {{ProductionPlanHost_HostAddress}}/production-plan/
+POST {{ProductionPlanHost_HostAddress}}/production-plan
 Accept: application/json
+Content-Type: application/json
 
-###
+{
+  "load": 150,
+  "powerPlants": [
+    {
+      "name": "wind1",
+      "type": "windturbine",
+      "efficiency": 0.5,
+      "pmin": 0,
+      "pmax": 100
+    },
+    {
+      "name": "gas1",
+      "type": "gasfired",
+      "efficiency": 0.5,
+      "pmin": 0,
+      "pmax": 100
+    }
+  ],
+  "fuels": {
+    "gas(euro/MWh)": 50,
+    "kerosine(euro/MWh)": 100,
+    "co2(euro/ton)": 0,
+    "wind(%)": 50
+  }
+}
