@@ -12,6 +12,9 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["ProductionPlanHost/ProductionPlanHost.csproj", "ProductionPlanHost/"]
+COPY ["ProductionPlanHost/Application.csproj", "Application/"]
+COPY ["ProductionPlanHost/Domain.csproj", "Domain/"]
+COPY ["ProductionPlanHost/SharedKernel.csproj", "SharedKernel/"]
 RUN dotnet restore "./ProductionPlanHost/ProductionPlanHost.csproj"
 COPY . .
 WORKDIR "/src/ProductionPlanHost"

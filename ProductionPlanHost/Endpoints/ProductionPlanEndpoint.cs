@@ -9,7 +9,7 @@ namespace ProductionPlanHost.Endpoints
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapGet("/production-plan",               
+            app.MapPost("/production-plan",               
                 async (CreateProductionPlanCommand command,[FromServices] ISender sender, CancellationToken cancellationToken) =>
             {
                 var result = await sender.Send(command, cancellationToken);
@@ -19,7 +19,7 @@ namespace ProductionPlanHost.Endpoints
                 .Produces<ProductionPlanResponse>()
                 .ProducesValidationProblem(StatusCodes.Status400BadRequest)
                 .ProducesProblem(StatusCodes.Status422UnprocessableEntity)
-                .ProducesProblem(StatusCodes.Status500InternalServerError); ;
+                .ProducesProblem(StatusCodes.Status500InternalServerError);
         }
     }
 }
