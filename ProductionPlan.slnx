@@ -1,4 +1,8 @@
 <Solution>
+  <Folder Name="/Tests/">
+    <Project Path="ArchitectureTests/ArchitectureTests.csproj" />
+    <Project Path="DomainTests/DomainTests.csproj" />
+  </Folder>
   <Folder Name="/Éléments de solution/">
     <File Path="Directory.Packages.props" />
   </Folder>

@@ -16,11 +16,13 @@ namespace Domain.Entities
         private PowerPlant(
         string name,
         double efficiency,
+        PlantType type,
         double pmin,
         double pmax)
         {
             Name = name;
             Efficiency = efficiency;
+            Type = type;
             Pmin = pmin;
             Pmax = pmax;
         }
@@ -47,7 +49,7 @@ namespace Domain.Entities
                 throw new InvalidPowerplantException(
                     "Invalid power limits.");
 
-            return new PowerPlant(name, efficiency, pmin, pmax);
+            return new PowerPlant(name, efficiency, plantType, pmin, pmax);
         }
 
         public double CalculateMerit(Fuel fuels) => Type switch
