@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/Éléments de solution/">
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Project Path="Application/Application.csproj" />
+  <Project Path="Domain/Domain.csproj" />
+  <Project Path="ProductionPlanHost/ProductionPlanHost.csproj" />
+  <Project Path="SharedKernel/SharedKernel.csproj" />
+</Solution>
