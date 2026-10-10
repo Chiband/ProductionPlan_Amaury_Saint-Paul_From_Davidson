@@ -10,6 +10,8 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddCarter();
 
+builder.Services.AddProblemDetails();
+
 builder.Services.AddExceptionHandler<ExceptionHandlers>();
 
 var app = builder.Build();

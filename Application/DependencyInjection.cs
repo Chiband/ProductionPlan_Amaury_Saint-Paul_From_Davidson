@@ -1,4 +1,5 @@
 ﻿using Application.Behaviors;
+using Domain.Services;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,7 @@ namespace Application
         {
             AddMediator(services);
             services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly, includeInternalTypes: true);
+            services.AddTransient<ProductionPlanCalculator>();
             return services;
         }
 

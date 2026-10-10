@@ -2,7 +2,7 @@
 {
     public class Result
     {
-        private Result(bool isSuccess, Error error)
+        protected Result(bool isSuccess, Error error)
         {
             if (isSuccess && error != Error.None ||
                 !isSuccess && error == Error.None)
@@ -25,6 +25,26 @@
         public static Result Failure(Error error) => new(false, error);
 
         public static Result NotFound(string description) => new(false, new Error("NotFound", description));
+    }
+
+    public sealed class Result<T> : Result
+    {
+        private Result(bool isSuccess, T? value, Error error)
+            : base(isSuccess, error)
+        {
+            Value = value;
+        }
+
+        public T? Value { get; }
+
+        public static Result<T> Success(T value) =>
+            new(true, value, Error.None);
+
+        public new static Result<T> Failure(Error error) =>
+            new(false, default, error);
+
+        public new static Result<T> NotFound(string description) =>
+            new(false, default, new Error("NotFound", description));
     }
 
 }

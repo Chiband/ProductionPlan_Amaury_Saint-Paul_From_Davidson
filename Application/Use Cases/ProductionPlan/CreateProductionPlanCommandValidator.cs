@@ -27,6 +27,14 @@ namespace Application.Use_Cases.ProductionPlan
                         .WithMessage(
                             "Efficiency must be a value between 0 and 1.");
 
+                    powerplant.RuleFor(p => p.Type)
+                    .NotEmpty()
+                    .Must(type =>
+                    type is "gasfired"
+                    or "turbojet"
+                    or "windturbine")
+                    .WithMessage("Type must be a valid type.");
+
                     powerplant.RuleFor(p => p.Pmin)
                         .GreaterThanOrEqualTo(0)
                         .WithMessage(
@@ -46,7 +54,7 @@ namespace Application.Use_Cases.ProductionPlan
             RuleFor(x => x.Fuels)
                 .NotNull()
                 .WithMessage("Fuel data is required.");
-            
+
             RuleFor(x => x.Fuels.Gas)
                 .GreaterThanOrEqualTo(0)
                 .WithMessage("Gas price must be a non-negative value.");

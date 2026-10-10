@@ -8,7 +8,7 @@ namespace Application.Use_Cases.ProductionPlan.Mappings
         public static PowerPlant ToDomain(
         this PowerPlantDto dto)
         {
-            return PowerPlant.Create(dto.Name, dto.Efficiency, dto.Pmin, dto.Pmax);
+            return PowerPlant.Create(dto.Name, dto.Efficiency, dto.Type, dto.Pmin, dto.Pmax);
         }
 
         public static Fuel ToDomain(this FuelDto dto) {

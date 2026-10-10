@@ -15,7 +15,11 @@ namespace ProductionPlanHost.Endpoints
                 var result = await sender.Send(command, cancellationToken);
 
                 return Results.Ok(result);                  
-            });
+            })
+                .Produces<ProductionPlanResponse>()
+                .ProducesValidationProblem(StatusCodes.Status400BadRequest)
+                .ProducesProblem(StatusCodes.Status422UnprocessableEntity)
+                .ProducesProblem(StatusCodes.Status500InternalServerError); ;
         }
     }
 }

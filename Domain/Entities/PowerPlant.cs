@@ -1,11 +1,15 @@
-﻿using Domain.Exceptions;
+﻿using Domain.Enums;
+using Domain.Exceptions;
+using Domain.Value_Objects;
 
 namespace Domain.Entities
 {
     public class PowerPlant
     {
-        public string Name { get; }
+        public string Name { get; }        
         public double Efficiency { get; }
+
+        public PlantType Type { get; }
         public double Pmin { get; }
         public double Pmax { get; }
 
@@ -24,6 +28,7 @@ namespace Domain.Entities
         public static PowerPlant Create(
             string name,
             double efficiency,
+            string type,
             double pmin,
             double pmax)
         {
@@ -34,11 +39,31 @@ namespace Domain.Entities
                 throw new InvalidPowerplantException(
                     "Efficiency must be between 0 and 1.");
 
+            if (!Enum.TryParse<PlantType>(type, true, out var plantType))
+                throw new InvalidPowerplantException(
+                    $"Invalid plant type: {type}.");
+
             if (pmin < 0 || pmax < pmin)
                 throw new InvalidPowerplantException(
                     "Invalid power limits.");
 
             return new PowerPlant(name, efficiency, pmin, pmax);
         }
+
+        public double CalculateMerit(Fuel fuels) => Type switch
+        {
+            PlantType.WindTurbine => 0,
+
+            PlantType.GasFired =>
+                fuels.Gas / Efficiency,
+
+            PlantType.Turbojet =>
+                fuels.Kerosine / Efficiency,
+
+            _ => throw new ArgumentOutOfRangeException(
+                nameof(Type),
+                Type,
+                "Unsupported power plant type.")
+        };
     }
 }
